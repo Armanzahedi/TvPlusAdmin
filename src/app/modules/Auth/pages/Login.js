@@ -18,16 +18,16 @@ import { login } from "../_redux/authCrud";
 */
 
 const initialValues = {
-  email: "admin@demo.com",
-  password: "demo",
+  userName: "Test",
+  password: "Test@123",
 };
 
 function Login(props) {
   const { intl } = props;
   const [loading, setLoading] = useState(false);
+  const [token, showToken] = useState("No Token");
   const LoginSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Wrong email format")
+    userName: Yup.string()
       .min(3, "Minimum 3 symbols")
       .max(50, "Maximum 50 symbols")
       .required(
@@ -71,10 +71,12 @@ function Login(props) {
     onSubmit: (values, { setStatus, setSubmitting }) => {
       enableLoading();
       setTimeout(() => {
-        login(values.email, values.password)
-          .then(({ data: { accessToken } }) => {
+        login(values.userName, values.password)
+          .then((res) => {
+            console.log(res.data.data.accessToken)
             disableLoading();
-            props.login(accessToken);
+            showToken(res.data.data.accessToken);
+            props.login(res.data.data.accessToken);
           })
           .catch(() => {
             disableLoading();
@@ -97,7 +99,8 @@ function Login(props) {
           <FormattedMessage id="AUTH.LOGIN.TITLE" />
         </h3>
         <p className="text-muted font-weight-bold">
-          Enter your username and password
+          Enter your username and password <br/>
+          {token}
         </p>
       </div>
       {/* end::Head */}
@@ -122,17 +125,17 @@ function Login(props) {
 
         <div className="form-group fv-plugins-icon-container">
           <input
-            placeholder="Email"
-            type="email"
+            placeholder="Username"
+            type="text"
             className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-              "email"
+              "userName"
             )}`}
-            name="email"
-            {...formik.getFieldProps("email")}
+            name="userName"
+            {...formik.getFieldProps("userName")}
           />
-          {formik.touched.email && formik.errors.email ? (
+          {formik.touched.userName && formik.errors.userName ? (
             <div className="fv-plugins-message-container">
-              <div className="fv-help-block">{formik.errors.email}</div>
+              <div className="fv-help-block">{formik.errors.userName}</div>
             </div>
           ) : null}
         </div>

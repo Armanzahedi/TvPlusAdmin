@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'iranYekan';
+    src: url(../fonts/IRANYekan/woff/iranyekanwebboldfanum.woff);
+}
+*{
+    font-family: 'iranYekan';
+}
