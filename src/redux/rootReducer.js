@@ -7,12 +7,16 @@ import {productsSlice} from "../app/modules/ECommerce/_redux/products/productsSl
 import {remarksSlice} from "../app/modules/ECommerce/_redux/remarks/remarksSlice";
 import {specificationsSlice} from "../app/modules/ECommerce/_redux/specifications/specificationsSlice";
 
+import {categoriesSlice} from "../app/pages/_redux/categories/categoriesSlice";
+
 export const rootReducer = combineReducers({
   auth: auth.reducer,
   customers: customersSlice.reducer,
   products: productsSlice.reducer,
   remarks: remarksSlice.reducer,
-  specifications: specificationsSlice.reducer
+  specifications: specificationsSlice.reducer,
+
+  categories: categoriesSlice.reducer
 });
 
 export function* rootSaga() {
